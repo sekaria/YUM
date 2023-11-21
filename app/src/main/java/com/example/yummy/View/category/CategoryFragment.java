@@ -1,89 +1,70 @@
 package com.example.yummy.View.category;
 
-import static com.example.yummy.View.home.HomeActivity.EXTRA_DETAIL;
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.yummy.Model.Categories;
 import com.example.yummy.Model.Meals;
 import com.example.yummy.R;
-import com.example.yummy.Utils.Utils;
 import com.example.yummy.View.adapter.RecyclerViewMealByCategory;
-import com.example.yummy.View.adapter.SearchAdapter;
-import com.example.yummy.View.detail.DetailActivity;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class CategoryFragment extends Fragment implements CategoryView {
 
-    private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private ImageView imageCategory;
-    private ImageView imageCategoryBg;
-    private TextView textCategory;
+    private RecyclerView recyclerView;
 
-    private AlertDialog.Builder descDialog;
+    public static final String ARG_CATEGORY = "ARG_CATEGORY";
 
-    @Nullable
+    public CategoryFragment() {
+        // Required empty public constructor
+    }
+
+    public static CategoryFragment newInstance(Categories.Category category) {
+        CategoryFragment fragment = new CategoryFragment();
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CATEGORY, category);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_category, container, false);
-
-        recyclerView = view.findViewById(R.id.recyclerView);
-        progressBar = view.findViewById(R.id.progressBar);
-        imageCategory = view.findViewById(R.id.imageCategory);
-        imageCategoryBg = view.findViewById(R.id.imageCategoryBg);
-        textCategory = view.findViewById(R.id.textCategory);
-
-        return view;
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_category, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        progressBar = view.findViewById(R.id.progressBar);
+        recyclerView = view.findViewById(R.id.recyclerView);
+
+        NestedScrollView nestedScrollView = view.findViewById(R.id.nestedScrollView);
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) nestedScrollView.getLayoutParams();
+
+
         if (getArguments() != null) {
-            textCategory.setText(getArguments().getString("EXTRA_DATA_DESC"));
-            Picasso.get()
-                    .load(getArguments().getString("EXTRA_DATA_IMAGE"))
-                    .into(imageCategory);
-            Picasso.get()
-                    .load(getArguments().getString("EXTRA_DATA_IMAGE"))
-                    .into(imageCategoryBg);
-            descDialog = new AlertDialog.Builder(getActivity())
-                    .setTitle(getArguments().getString("EXTRA_DATA_NAME"))
-                    .setMessage(getArguments().getString("EXTRA_DATA_DESC"));
-
-            // Add OnClickListener to imageCategory or any other view you want to set the click event
-            imageCategory.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // Your onClick logic here
-                    showDescriptionDialog();
-                }
-            });
-
-            CategoryPresenter presenter = new CategoryPresenter(this);
-            presenter.getMealByCategory(getArguments().getString("EXTRA_DATA_NAME"));
+            Categories.Category category = (Categories.Category) getArguments().getSerializable(ARG_CATEGORY);
+            if (category != null) {
+                CategoryPresenter presenter = new CategoryPresenter(this);
+                presenter.getMealByCategory(category.getStrCategory());
+            }
         }
     }
 
@@ -99,59 +80,24 @@ public class CategoryFragment extends Fragment implements CategoryView {
 
     @Override
     public void setMeals(List<Meals.Meal> meals) {
-        RecyclerViewMealByCategory adapter =
-                new RecyclerViewMealByCategory(getActivity(), meals);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        recyclerView.setClipToPadding(false);
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        // Check if the fragment is attached to an activity to avoid null pointer exceptions
+        if (isAdded()) {
+            // Create an instance of your adapter
+            RecyclerViewMealByCategory adapter = new RecyclerViewMealByCategory(requireContext(), meals);
 
-        adapter.setOnItemClickListener(new RecyclerViewMealByCategory.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                TextView mealName = view.findViewById(R.id.mealName);
-                Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra(EXTRA_DETAIL, mealName.getText().toString());
-                startActivity(intent);
-            }
-        });
+            // Set a layout manager with two columns for the RecyclerView
+            GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
+            recyclerView.setLayoutManager(layoutManager);
+
+            // Set the adapter for the RecyclerView
+            recyclerView.setAdapter(adapter);
+        }
     }
 
-    private void showDescriptionDialog() {
-        descDialog.setPositiveButton("CLOSE", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        descDialog.show();
-    }
+
+
     @Override
     public void onErrorLoading(String message) {
-        Utils.showDialogMessage(getActivity(), "Error ", message);
+        // Handle error loading here
     }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        recyclerView = null;
-        progressBar = null;
-        imageCategory = null;
-        imageCategoryBg = null;
-        textCategory = null;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        descDialog = null;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        descDialog = null;
-    }
-
-
 }

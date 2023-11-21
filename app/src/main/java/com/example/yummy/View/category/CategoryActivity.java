@@ -6,21 +6,18 @@ import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.yummy.Model.Categories;
 import com.example.yummy.R;
-import com.example.yummy.View.adapter.ViewPagerCategoryAdapter;
 import com.example.yummy.View.home.HomeActivity;
-import com.google.android.material.tabs.TabLayout;
-
 
 import java.util.List;
 
 public class CategoryActivity extends AppCompatActivity {
+
     private Toolbar toolbar;
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +25,10 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
 
         toolbar = findViewById(R.id.toolbar);
-        tabLayout = findViewById(R.id.tabLayout);
-        viewPager = findViewById(R.id.viewPager);
+        setSupportActionBar(toolbar);
 
-        initActionBar();
+        fragmentManager = getSupportFragmentManager();
+
         initIntent();
     }
 
@@ -41,17 +38,13 @@ public class CategoryActivity extends AppCompatActivity {
                 (List<Categories.Category>) intent.getSerializableExtra(HomeActivity.EXTRA_CATEGORY);
         int position = intent.getIntExtra(HomeActivity.EXTRA_POSITION, 0);
 
-        ViewPagerCategoryAdapter adapter = new ViewPagerCategoryAdapter(
-                getSupportFragmentManager(),
-                categories);
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.setCurrentItem(position, true);
-        adapter.notifyDataSetChanged();
-    }
+        if (categories != null && !categories.isEmpty()) {
+            CategoryFragment categoryFragment = CategoryFragment.newInstance(categories.get(position));
+            fragmentManager.beginTransaction()
+                    .replace(R.id.frameLayout, categoryFragment)
+                    .commit();
+        }
 
-    private void initActionBar() {
-        setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -62,8 +55,9 @@ public class CategoryActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
-                break;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return true;
     }
 }

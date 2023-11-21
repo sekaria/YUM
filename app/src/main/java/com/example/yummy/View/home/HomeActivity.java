@@ -16,7 +16,7 @@ import com.example.yummy.Model.Meals;
 import com.example.yummy.R;
 import com.example.yummy.Utils.Utils;
 import com.example.yummy.View.adapter.RecyclerViewHomeAdapter;
-import com.example.yummy.View.adapter.ViewPagerHeaderAdapter;
+//import com.example.yummy.View.adapter.ViewPagerHeaderAdapter;
 import com.example.yummy.View.category.CategoryActivity;
 import com.example.yummy.View.detail.DetailActivity;
 
@@ -79,23 +79,23 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         findViewById(R.id.shimmer_category).setVisibility(View.GONE);
     }
 
-    @Override
-    public void setMeal(List<Meals.Meal> meal) {
-        ViewPagerHeaderAdapter headerAdapter = new ViewPagerHeaderAdapter(meal, this);
-        viewPagerMeal.setAdapter(headerAdapter);
-        viewPagerMeal.setPadding(40, 0, 40, 0);
-        headerAdapter.notifyDataSetChanged();
-
-        headerAdapter.setOnItemClickListener(new ViewPagerHeaderAdapter.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                TextView mealName = view.findViewById(R.id.mealName);
-                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
-                intent.putExtra(EXTRA_DETAIL, mealName.getText().toString());
-                startActivity(intent);
-            }
-        });
-    }
+//    @Override
+//    public void setMeal(List<Meals.Meal> meal) {
+//        ViewPagerHeaderAdapter headerAdapter = new ViewPagerHeaderAdapter(meal, this);
+//        viewPagerMeal.setAdapter(headerAdapter);
+//        viewPagerMeal.setPadding(40, 0, 40, 0);
+//        headerAdapter.notifyDataSetChanged();
+//
+//        headerAdapter.setOnItemClickListener(new ViewPagerHeaderAdapter.ClickListener() {
+//            @Override
+//            public void onClick(View view, int position) {
+//                TextView mealName = view.findViewById(R.id.mealName);
+//                Intent intent = new Intent(getApplicationContext(), DetailActivity.class);
+//                intent.putExtra(EXTRA_DETAIL, mealName.getText().toString());
+//                startActivity(intent);
+//            }
+//        });
+//    }
 
     @Override
     public void setCategory(final List<Categories.Category> category) {
