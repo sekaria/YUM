@@ -40,11 +40,11 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        viewPagerMeal = findViewById(R.id.view_pager_header);
+//        viewPagerMeal = findViewById(R.id.view_pager_header);
         recyclerViewCategory = findViewById(R.id.recycler_category);
 
         presenter = new HomePresenter(this);
-        presenter.getMeals();
+//        presenter.getMeals();
         presenter.getCategories();
 
         SearchView searchView = findViewById(R.id.editTextSearch);
@@ -69,13 +69,13 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @Override
     public void showLoading() {
-        findViewById(R.id.shimmer_meal).setVisibility(View.VISIBLE);
+//        findViewById(R.id.shimmer_meal).setVisibility(View.VISIBLE);
         findViewById(R.id.shimmer_category).setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
-        findViewById(R.id.shimmer_meal).setVisibility(View.GONE);
+//        findViewById(R.id.shimmer_meal).setVisibility(View.GONE);
         findViewById(R.id.shimmer_category).setVisibility(View.GONE);
     }
 

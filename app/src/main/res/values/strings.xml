@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">YUM</string>
+    <string name="home_header">Discover, Cook, Enjoy!</string>
+    <string name="home_subheader">YUM! Make it easy</string>
     <string name="search">Search Category</string>
     <string name="meal_category">Meal Category</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
