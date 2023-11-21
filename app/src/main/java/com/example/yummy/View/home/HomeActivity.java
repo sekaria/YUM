@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -30,8 +31,8 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     public static final String EXTRA_POSITION = "position";
     public static final String EXTRA_DETAIL = "detail";
 
-    private ViewPager viewPagerMeal;
     private RecyclerView recyclerViewCategory;
+    private ProgressBar progressBar;
 
     private HomePresenter presenter;
 
@@ -42,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
 //        viewPagerMeal = findViewById(R.id.view_pager_header);
         recyclerViewCategory = findViewById(R.id.recycler_category);
+        progressBar = findViewById(R.id.progressBar);
 
         presenter = new HomePresenter(this);
 //        presenter.getMeals();
@@ -70,13 +72,15 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
     @Override
     public void showLoading() {
 //        findViewById(R.id.shimmer_meal).setVisibility(View.VISIBLE);
-        findViewById(R.id.shimmer_category).setVisibility(View.VISIBLE);
+//        findViewById(R.id.shimmer_category).setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoading() {
 //        findViewById(R.id.shimmer_meal).setVisibility(View.GONE);
-        findViewById(R.id.shimmer_category).setVisibility(View.GONE);
+//        findViewById(R.id.shimmer_category).setVisibility(View.GONE);
+        progressBar.setVisibility(View.GONE);
     }
 
 //    @Override

@@ -1,5 +1,8 @@
 package com.example.yummy.View.category;
 
+import static com.example.yummy.View.home.HomeActivity.EXTRA_DETAIL;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +24,7 @@ import com.example.yummy.Model.Categories;
 import com.example.yummy.Model.Meals;
 import com.example.yummy.R;
 import com.example.yummy.View.adapter.RecyclerViewMealByCategory;
+import com.example.yummy.View.detail.DetailActivity;
 
 import java.util.List;
 
@@ -91,8 +96,21 @@ public class CategoryFragment extends Fragment implements CategoryView {
 
             // Set the adapter for the RecyclerView
             recyclerView.setAdapter(adapter);
+
+            // Set an item click listener for the adapter
+            adapter.setOnItemClickListener(new RecyclerViewMealByCategory.ClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    // Handle the click event
+                    TextView mealName = view.findViewById(R.id.mealName);
+                    Intent intent = new Intent(getActivity(), DetailActivity.class);
+                    intent.putExtra(EXTRA_DETAIL, mealName.getText().toString());
+                    startActivity(intent);
+                }
+            });
         }
     }
+
 
 
 
