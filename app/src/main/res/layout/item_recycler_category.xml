@@ -32,3 +32,5 @@
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
+
+<!--digunakan untuk adapter di RecyclerViewHomeAdapter-->

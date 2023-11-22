@@ -44,11 +44,6 @@ public class RecyclerViewHomeAdapter extends RecyclerView.Adapter<RecyclerViewHo
         viewHolder.categoryName.setText(strCategoryName);
     }
 
-//    @Override
-//    public int getItemCount() {
-//        return categories.size();
-//    }
-
     @Override
     public int getItemCount() {
         if (categories == null) {

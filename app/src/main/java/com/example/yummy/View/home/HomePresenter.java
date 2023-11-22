@@ -20,34 +20,6 @@ public class HomePresenter {
         this.view = view;
     }
 
-//    void getMeals() {
-//
-//        view.showLoading();
-//
-//        Call<Meals> mealsCall = Utils.getApi().getMeal();
-//        mealsCall.enqueue(new Callback<Meals>() {
-//            @Override
-//            public void onResponse(@NonNull Call<Meals> call, @NonNull Response<Meals> response) {
-//                view.hideLoading();
-//
-//                if (response.isSuccessful() && response.body() != null) {
-//
-//                    view.setMeal(response.body().getMeals());
-//
-//                } else {
-//                    view.onErrorLoading(response.message());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<Meals> call, @NonNull Throwable t) {
-//                view.hideLoading();
-//                view.onErrorLoading(t.getLocalizedMessage());
-//            }
-//        });
-//    }
-
-
     void getCategories() {
 
         view.showLoading();
@@ -76,36 +48,6 @@ public class HomePresenter {
         });
     }
 
-//    void searchCategories(String query) {
-//        view.showLoading();
-//        Call<Categories> categoriesCall = Utils.getApi().searchCategories(query);
-//        categoriesCall.enqueue(new Callback<Categories>() {
-//            @Override
-//            public void onResponse(@NonNull Call<Categories> call, @NonNull Response<Categories> response) {
-//                view.hideLoading();
-//                if (response.isSuccessful() && response.body() != null) {
-//                    List<Categories.Category> allCategories = response.body().getCategories();
-//                    List<Categories.Category> filteredCategories = new ArrayList<>();
-//
-//                    for (Categories.Category category : allCategories) {
-//                        if (category.getStrCategory().toLowerCase().contains(query.toLowerCase())) {
-//                            filteredCategories.add(category);
-//                        }
-//                    }
-//                    view.setSearchResults(filteredCategories);
-//                } else {
-//                    view.onErrorLoading(response.message());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(@NonNull Call<Categories> call, @NonNull Throwable t) {
-//                view.hideLoading();
-//                view.onErrorLoading(t.getLocalizedMessage());
-//            }
-//        });
-//    }
-
     void searchCategories(String query) {
         view.showLoading();
         Call<Categories> categoriesCall = Utils.getApi().searchCategories(query);
@@ -124,7 +66,6 @@ public class HomePresenter {
                     }
 
                     if (filteredCategories.isEmpty()) {
-                        // Jika hasil pencarian kosong, tampilkan pesan "There is no such category"
                         view.showNoResults();
                     } else {
                         view.setSearchResults(filteredCategories);

@@ -17,11 +17,12 @@ public class CategoryPresenter {
     }
 
     void getMealByCategory(String category) {
+
         view.showLoading();
         Call<Meals> mealsCall = Utils.getApi().getMealByCategory(category);
         mealsCall.enqueue(new Callback<Meals>() {
             @Override
-            public void onResponse(@NonNull Call<Meals> call, @NonNull Response<Meals> response) {
+            public void onResponse(@NonNull Call<Meals> call,@NonNull Response<Meals> response) {
                 view.hideLoading();
                 if (response.isSuccessful() && response.body() != null) {
                     view.setMeals(response.body().getMeals());
@@ -36,5 +37,6 @@ public class CategoryPresenter {
                 view.onErrorLoading(t.getLocalizedMessage());
             }
         });
+
     }
 }

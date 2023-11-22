@@ -20,9 +20,6 @@ public class Categories implements Serializable {
     }
 
     public static class Category implements Serializable {
-        @SerializedName("idCategory")
-        @Expose
-        private String idCategory;
         @SerializedName("strCategory")
         @Expose
         private String strCategory;
@@ -33,32 +30,12 @@ public class Categories implements Serializable {
         @Expose
         private String strCategoryDescription;
 
-        public String getIdCategory() {
-            return idCategory;
-        }
-
-        public void setIdCategory(String idCategory) {
-            this.idCategory = idCategory;
-        }
-
         public String getStrCategory() {
             return strCategory;
         }
 
-        public void setStrCategory(String strCategory) {
-            this.strCategory = strCategory;
-        }
-
         public String getStrCategoryThumb() {
             return strCategoryThumb;
-        }
-
-        public void setStrCategoryThumb(String strCategoryThumb) {
-            this.strCategoryThumb = strCategoryThumb;
-        }
-
-        public String getStrCategoryDescription() {
-            return strCategoryDescription;
         }
     }
 }

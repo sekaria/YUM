@@ -4,12 +4,11 @@
     <string name="home_subheader">YUM! Make it easy</string>
     <string name="search">Search Category</string>
     <string name="meal_category">Meal Category</string>
-    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
     <string name="category">Category</string>
     <string name="country">Country</string>
     <string name="instructions">INSTRUCTIONS</string>
-    <string name="dot_loading">...</string>
     <string name="Ingredients">INGREDIENTS</string>
     <string name="youtube">YOUTUBE</string>
     <string name="source">SOURCE</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior</string>
 </resources>

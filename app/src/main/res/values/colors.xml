@@ -5,8 +5,6 @@
     <color name="colorAccent">#dda15e</color>
     <color name="colorCardPrimary">#eeeeee</color>
     <color name="colorBackground">#fefae0</color>
-    <color name="colorCardPrimaryText">#111111</color>
     <color name="colorCardBottomText">#222222</color>
-    <color name="shimmer_view">#DFDFDF</color>
     <color name="white">#ffffff</color>
 </resources>

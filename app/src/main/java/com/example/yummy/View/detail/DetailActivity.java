@@ -39,8 +39,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     private AppBarLayout appBarLayout;
     private CollapsingToolbarLayout collapsingToolbarLayout;
     private ImageView mealThumb;
-    private TextView category;
-    private TextView country;
     private TextView instructions;
     private TextView ingredients;
     private TextView measures;
@@ -57,8 +55,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         appBarLayout = findViewById(R.id.appbar);
         collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
         mealThumb = findViewById(R.id.mealThumb);
-        category = findViewById(R.id.category);
-        country = findViewById(R.id.country);
         instructions = findViewById(R.id.instructions);
         ingredients = findViewById(R.id.ingredient);
         measures = findViewById(R.id.measure);
@@ -83,27 +79,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
     }
-
-    void setupColorActionBarIcon(final Drawable favoriteItemColor) {
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if ((collapsingToolbarLayout.getHeight() + verticalOffset) < (2 * ViewCompat.getMinimumHeight(collapsingToolbarLayout))) {
-                    if (toolbar.getNavigationIcon() != null)
-                        toolbar.getNavigationIcon().setColorFilter(DetailActivity.this.getResources().getColor(R.color.colorPrimary), PorterDuff.Mode.SRC_ATOP);
-                    favoriteItemColor.mutate().setColorFilter(DetailActivity.this.getResources().getColor(R.color.colorPrimary),
-                            PorterDuff.Mode.SRC_ATOP);
-
-                } else {
-                    if (toolbar.getNavigationIcon() != null)
-                        toolbar.getNavigationIcon().setColorFilter(DetailActivity.this.getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
-                    favoriteItemColor.mutate().setColorFilter(DetailActivity.this.getResources().getColor(R.color.white),
-                            PorterDuff.Mode.SRC_ATOP);
-                }
-            }
-        });
-    }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -130,8 +105,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     public void setMeal(Meals.Meal meal) {
         Picasso.get().load(meal.getStrMealThumb()).into(mealThumb);
         collapsingToolbarLayout.setTitle(meal.getStrMeal());
-        category.setText(meal.getStrCategory());
-        country.setText(meal.getStrArea());
         instructions.setText(meal.getStrInstructions());
         setupActionBar();
 
@@ -272,31 +245,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
             startActivity(intentSource);
         });
     }
-
-    private String getIngredient(Meals.Meal meal, int index) {
-        switch (index) {
-            case 1:
-                return meal.getStrIngredient1();
-            case 2:
-                return meal.getStrIngredient2();
-            // Add cases for 3 to 20
-            default:
-                return "";
-        }
-    }
-
-    private String getMeasure(Meals.Meal meal, int index) {
-        switch (index) {
-            case 1:
-                return meal.getStrMeasure1();
-            case 2:
-                return meal.getStrMeasure2();
-            // Add cases for 3 to 20
-            default:
-                return "";
-        }
-    }
-
 
     @Override
     public void onErrorLoading(String message) {
