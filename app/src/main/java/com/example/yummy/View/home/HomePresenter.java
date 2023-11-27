@@ -3,7 +3,6 @@ package com.example.yummy.View.home;
 import androidx.annotation.NonNull;
 
 import com.example.yummy.Model.Categories;
-import com.example.yummy.Model.Meals;
 import com.example.yummy.Utils.Utils;
 
 import java.util.ArrayList;

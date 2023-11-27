@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,12 +16,12 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.yummy.Model.Categories;
 import com.example.yummy.Model.Meals;
 import com.example.yummy.R;
+import com.example.yummy.Utils.Utils;
 import com.example.yummy.View.adapter.RecyclerViewMealByCategory;
 import com.example.yummy.View.detail.DetailActivity;
 
@@ -34,10 +33,6 @@ public class CategoryFragment extends Fragment implements CategoryView {
     private RecyclerView recyclerView;
 
     public static final String ARG_CATEGORY = "ARG_CATEGORY";
-
-    public CategoryFragment() {
-        // Required empty public constructor
-    }
 
     public static CategoryFragment newInstance(Categories.Category category) {
         CategoryFragment fragment = new CategoryFragment();
@@ -85,23 +80,14 @@ public class CategoryFragment extends Fragment implements CategoryView {
 
     @Override
     public void setMeals(List<Meals.Meal> meals) {
-        // Check if the fragment is attached to an activity to avoid null pointer exceptions
         if (isAdded()) {
-            // Create an instance of your adapter
             RecyclerViewMealByCategory adapter = new RecyclerViewMealByCategory(requireContext(), meals);
-
-            // Set a layout manager with two columns for the RecyclerView
             GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
             recyclerView.setLayoutManager(layoutManager);
-
-            // Set the adapter for the RecyclerView
             recyclerView.setAdapter(adapter);
-
-            // Set an item click listener for the adapter
             adapter.setOnItemClickListener(new RecyclerViewMealByCategory.ClickListener() {
                 @Override
                 public void onClick(View view, int position) {
-                    // Handle the click event
                     TextView mealName = view.findViewById(R.id.mealName);
                     Intent intent = new Intent(getActivity(), DetailActivity.class);
                     intent.putExtra(EXTRA_DETAIL, mealName.getText().toString());
@@ -111,11 +97,8 @@ public class CategoryFragment extends Fragment implements CategoryView {
         }
     }
 
-
-
-
     @Override
     public void onErrorLoading(String message) {
-        // Handle error loading here
+        Utils.showDialogMessage(requireContext(), "Error", message);
     }
 }

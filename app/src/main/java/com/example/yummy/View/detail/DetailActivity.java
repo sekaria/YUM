@@ -1,17 +1,11 @@
 package com.example.yummy.View.detail;
 
-//import static android.os.Build.VERSION_CODES.R;
-
 import static com.example.yummy.View.home.HomeActivity.EXTRA_DETAIL;
 
 import android.content.Intent;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import android.view.View;
@@ -22,7 +16,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.ViewCompat;
 
 import com.example.yummy.Model.Meals;
 import com.example.yummy.Utils.Utils;
@@ -107,8 +100,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         collapsingToolbarLayout.setTitle(meal.getStrMeal());
         instructions.setText(meal.getStrInstructions());
         setupActionBar();
-
-        //===
 
         if (!meal.getStrIngredient1().isEmpty()) {
             ingredients.append("\n \u2022 " + meal.getStrIngredient1());

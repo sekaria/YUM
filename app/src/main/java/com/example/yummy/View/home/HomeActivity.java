@@ -10,16 +10,12 @@ import android.widget.ProgressBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.yummy.Model.Categories;
-import com.example.yummy.Model.Meals;
 import com.example.yummy.R;
 import com.example.yummy.Utils.Utils;
 import com.example.yummy.View.adapter.RecyclerViewHomeAdapter;
-//import com.example.yummy.View.adapter.ViewPagerHeaderAdapter;
 import com.example.yummy.View.category.CategoryActivity;
-import com.example.yummy.View.detail.DetailActivity;
 
 import java.io.Serializable;
 import java.util.List;
@@ -51,14 +47,12 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // Perform the search when the user submits the query
                 presenter.searchCategories(query);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                // You can perform actions while the user is typing, if needed
                 if (newText.isEmpty()) {
                     presenter.getCategories();
                 }
@@ -112,7 +106,6 @@ public class HomeActivity extends AppCompatActivity implements HomeView {
 
     @Override
     public void setSearchResults(List<Categories.Category> searchResults) {
-        // Menanggapi hasil pencarian
         RecyclerViewHomeAdapter homeAdapter = new RecyclerViewHomeAdapter(searchResults, this);
         recyclerViewCategory.setAdapter(homeAdapter);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
