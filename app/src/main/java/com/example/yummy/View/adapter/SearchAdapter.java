@@ -6,19 +6,19 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.yummy.Model.Search;
+import com.example.yummy.Model.Meals;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
-    private List<Search.Meal> meals;
-    private List<Search.Meal> originalMeals; // Add this line for backup
+    private List<Meals.Meal> meals;
+    private List<Meals.Meal> originalMeals; // Add this line for backup
 
     // Constructor and other methods
 
-    public SearchAdapter(List<Search.Meal> meals) {
+    public SearchAdapter(List<Meals.Meal> meals) {
         this.meals = meals;
         this.originalMeals = new ArrayList<>(meals); // Initialize originalMeals
     }
@@ -43,7 +43,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             meals.addAll(originalMeals);
         } else {
             text = text.toLowerCase();
-            for (Search.Meal meal : originalMeals) {
+            for (Meals.Meal meal : originalMeals) {
                 if (meal.getStrMeal().toLowerCase().contains(text)) {
                     meals.add(meal);
                 }
