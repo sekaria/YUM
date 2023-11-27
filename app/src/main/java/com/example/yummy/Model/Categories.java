@@ -26,9 +26,6 @@ public class Categories implements Serializable {
         @SerializedName("strCategoryThumb")
         @Expose
         private String strCategoryThumb;
-        @SerializedName("strCategoryDescription")
-        @Expose
-        private String strCategoryDescription;
 
         public String getStrCategory() {
             return strCategory;
